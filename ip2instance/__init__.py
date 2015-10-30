@@ -71,7 +71,8 @@ def get_all_instances(roles,
                     assumed_roles[role_arn] = assumed_role
                 else:
                     continue
-            conn_ec2 = get_connection(assumed_roles[role_arn]['credentials'], region)
+            conn_ec2 = get_connection(assumed_roles[role_arn]['credentials'],
+                                      region)
             if not conn_ec2:
                 continue
             data = {'role': role_arn,
@@ -156,8 +157,8 @@ def get_instances(conn_ec2, additional_data={}, ip_address=None):
             instance.name = (instance.tags['Name']
                              if 'Name' in instance.tags
                              else "")
-            if (ip_address is not None
-                    and instance.ip_address == ip_address):
+            if (ip_address is not None and
+                    instance.ip_address == ip_address):
                 # short circuit as soon as we find the IP and return it
                 return [instance]
             else:
